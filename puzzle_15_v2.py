@@ -1,14 +1,12 @@
-# TODO
-# исправить ошибку ввода
-
 import random
 import os
 
-dimension = 3
+dimension = 4
 if dimension == 1:
     exit("the dimension must be > 1")
+
 max_size = len(str(dimension ** 2 - 1))
-spaces = f"{" " * max_size}"
+spaces = f"{' ' * max_size}"
 
 def create_right_field(dimension):
     values = [" "]
@@ -19,12 +17,14 @@ def create_right_field(dimension):
         raw = []
         for j in range(dimension):
             if len(str(values[-1])) < max_size:
-                raw.append(f"{" " * (max_size - len(str(values[-1])))}{values[-1]}")
+                raw.append(f"{' ' * (max_size - len(str(values[-1])))}{values[-1]}")
             else:
                 raw.append(str(values[-1]))
             values.pop()
         right_field.append(raw)
     return right_field
+
+
 right_field, field = create_right_field(dimension), create_right_field(dimension)
 
 def get_indexes(field, rand: bool):
@@ -64,7 +64,7 @@ def logic(field, rand):
         if abs(num[1] - blank[1]) == 1:
             field[num[0]][num[1]] = spaces
             if len(str(choice)) < max_size:
-                choice = f"{" " * (max_size - len(str(choice)))}{choice}"
+                choice = f"{' ' * (max_size - len(str(choice)))}{choice}"
             else:
                 choice = str(choice)
             field[blank[0]][blank[1]] = choice
@@ -72,7 +72,7 @@ def logic(field, rand):
         if abs(num[0] - blank[0]) == 1:
             field[num[0]][num[1]] = spaces
             if len(str(choice)) < max_size:
-                choice = f"{" " * (max_size - len(str(choice)))}{choice}"
+                choice = f"{' ' * (max_size - len(str(choice)))}{choice}"
             else:
                 choice = str(choice)
             field[blank[0]][blank[1]] = choice
@@ -81,6 +81,7 @@ def create_random_field(field):
     for i in range(dimension ** 4):
         logic(field, True)
 
+
 create_random_field(field)
 
 def print_field(field):
@@ -88,9 +89,13 @@ def print_field(field):
     for i in field:
         print(*i)
 
+
 while field != right_field:
-    print_field(field)
-    logic(field, False)
+    try:
+        print_field(field)
+        logic(field, False)
+    except (UnboundLocalError, ValueError):
+        pass
 else:
     print_field(field)
     print("Win!")
