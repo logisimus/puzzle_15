@@ -1,5 +1,3 @@
-# Защита лаб №4
-
 import random
 import os
 
@@ -102,3 +100,4 @@ else:
     print_field(field)
     print("Win!")
 
+# Это конец программы
