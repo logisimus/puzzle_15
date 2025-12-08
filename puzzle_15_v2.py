@@ -1,3 +1,5 @@
+# Защита лаб №4
+
 import random
 import os
 
